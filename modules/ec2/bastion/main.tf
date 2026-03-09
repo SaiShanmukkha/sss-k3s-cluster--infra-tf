@@ -54,7 +54,11 @@ resource "aws_instance" "bastion" {
   }
 
   user_data = base64encode(templatefile("${path.module}/userdata/bastion.sh", {
-    cluster_name = var.cluster_name
+    cluster_name                = var.cluster_name
+    rancher_bootstrap_password  = var.rancher_bootstrap_password
+    traefik_dashboard_password  = var.traefik_dashboard_password
+    longhorn_ui_password        = var.longhorn_ui_password
+    grafana_admin_password      = var.grafana_admin_password
   }))
 
   metadata_options {

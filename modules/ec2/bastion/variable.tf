@@ -32,3 +32,23 @@ variable "tags" {
   type    = map(string)
   default = {}
 }
+
+variable "rancher_bootstrap_password" {
+  type      = string
+  sensitive = true
+}
+
+variable "traefik_dashboard_password" {
+  type      = string
+  sensitive = true
+}
+
+variable "longhorn_ui_password" {
+  type      = string
+  sensitive = true
+}
+
+variable "grafana_admin_password" {
+  type      = string
+  sensitive = true
+}

@@ -107,12 +107,16 @@ module "ingress" {
 module "bastion" {
   source = "./modules/ec2/bastion"
 
-  cluster_name             = local.cluster_name
-  public_subnet_id         = module.vpc.public_subnet_ids["ap-south-1a"]
-  admin_key_name           = module.keypair.admin_key_name
-  bastion_sg_id            = module.security_groups.bastion_sg_id
-  bastion_instance_profile = module.iam.bastion_instance_profile_name
-  tags                     = local.common_tags
+  cluster_name                = local.cluster_name
+  public_subnet_id            = module.vpc.public_subnet_ids["ap-south-1a"]
+  admin_key_name              = module.keypair.admin_key_name
+  bastion_sg_id               = module.security_groups.bastion_sg_id
+  bastion_instance_profile    = module.iam.bastion_instance_profile_name
+  tags                        = local.common_tags
+  rancher_bootstrap_password  = var.rancher_bootstrap_password
+  traefik_dashboard_password  = var.traefik_dashboard_password
+  longhorn_ui_password        = var.longhorn_ui_password
+  grafana_admin_password      = var.grafana_admin_password
 }
 
 # =============================================================================

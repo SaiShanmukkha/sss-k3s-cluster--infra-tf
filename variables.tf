@@ -167,3 +167,36 @@ variable "longhorn_backup_bucket_name" {
   nullable    = true
 }
 
+/* UI / App Passwords — written to ~/helm-secrets.env on bastion at provision time */
+
+# Pre-generate with: openssl rand -base64 32
+variable "rancher_bootstrap_password" {
+  type        = string
+  description = "Rancher initial bootstrap password (Helm --set bootstrapPassword). Change on first login."
+  sensitive   = true
+  nullable    = false
+}
+
+# Pre-generate with: htpasswd -nb admin $(openssl rand -base64 16) | base64
+# The value stored here is the PLAIN password; bastion.sh runs htpasswd + base64 at boot.
+variable "traefik_dashboard_password" {
+  type        = string
+  description = "Plain password for the Traefik dashboard basicAuth (user: admin). Hashed on the bastion at boot."
+  sensitive   = true
+  nullable    = false
+}
+
+variable "longhorn_ui_password" {
+  type        = string
+  description = "Plain password for Longhorn UI basicAuth (user: admin). Hashed on the bastion at boot."
+  sensitive   = true
+  nullable    = false
+}
+
+variable "grafana_admin_password" {
+  type        = string
+  description = "Grafana admin password for the kube-prometheus-stack Helm release."
+  sensitive   = true
+  nullable    = false
+}
+

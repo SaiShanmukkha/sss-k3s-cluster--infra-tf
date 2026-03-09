@@ -35,4 +35,22 @@ AllowAgentForwarding yes
 EOF
 systemctl restart sshd
 
+# ─── Helm UI secrets ─────────────────────────────────────────────────────────
+# Written once at boot; source this file before running helm install commands.
+# Plain passwords are hashed here so Kubernetes secrets hold only hashed values.
+dnf install -y httpd-tools   # provides htpasswd
+
+TRAEFIK_HTPASSWD=$(htpasswd -nb admin '${traefik_dashboard_password}')
+LONGHORN_HTPASSWD=$(htpasswd -nb admin '${longhorn_ui_password}' | base64)
+
+cat > /root/helm-secrets.env << ENVSECRETS
+# Source this file before running helm install / upgrade commands:
+#   source ~/helm-secrets.env
+export RANCHER_BOOTSTRAP_PASSWORD='${rancher_bootstrap_password}'
+export TRAEFIK_DASHBOARD_HTPASSWD='$${TRAEFIK_HTPASSWD}'
+export LONGHORN_UI_HTPASSWD_B64='$${LONGHORN_HTPASSWD}'
+export GRAFANA_ADMIN_PASSWORD='${grafana_admin_password}'
+ENVSECRETS
+chmod 600 /root/helm-secrets.env
+
 echo "Bastion setup complete" >> /var/log/userdata.log
