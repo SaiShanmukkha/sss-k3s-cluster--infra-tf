@@ -29,9 +29,9 @@ locals {
 
   # Node name map — used for hostname and EC2 Name tag
   k3s_server_node_names = {
-    "ap-south-1a" = "k3s-server-1" # TODO: change to server-1
-    "ap-south-1b" = "k3s-server-2" # TODO: change to server-2
-    "ap-south-1c" = "k3s-server-3" # TODO: change to server-3
+    "ap-south-1a" = "server-1"
+    "ap-south-1b" = "server-2"
+    "ap-south-1c" = "server-3"
   }
 
   # One worker per AZ — keys must match private_subnet_cidrs AZ keys
