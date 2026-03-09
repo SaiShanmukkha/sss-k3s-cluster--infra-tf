@@ -1,0 +1,34 @@
+files/
+
+# ── Terraform state ───────────────────────────────────────────────────────────
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+.terraform/
+.terraform.lock.hcl
+
+# ── Sensitive variable files ──────────────────────────────────────────────────
+*.tfvars.json
+# Do NOT ignore terraform.tfvars itself — it has no secrets (those go in TF Cloud)
+# If you ever add a local override file, name it *.auto.tfvars and it will be ignored:
+*.auto.tfvars
+
+# ── Generated SSH private keys ────────────────────────────────────────────────
+keys/
+*.pem
+
+# ── Crash / debug logs ────────────────────────────────────────────────────────
+crash.log
+crash.*.log
+*.tfplan
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# ── OS / editor noise ─────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.vscode/
+*.swp
+*.swo
